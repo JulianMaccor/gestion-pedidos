@@ -2,6 +2,8 @@ package com.ejemplo.pedidos;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 public class Practica {
     public static void main(String[] args) {
@@ -35,6 +37,18 @@ public class Practica {
                 .sum();
         System.out.println("Stock de productos caros: " + resultado);
 
+        Optional<Producto> existe = buscarPorId(productos, 104L);
+        existe.ifPresent(producto -> System.out.println("Producto Encontrado: " + producto.getNombre()));
+        Optional<Producto> noExiste= buscarPorId(productos, 999L);
+        if (noExiste.isEmpty()){
+            System.out.println("No existe el producto con el id solicitado");
+        }
+
+    }
+    static Optional<Producto> buscarPorId(List<Producto> productos, Long id){
+        return productos.stream()
+                .filter(p -> Objects.equals(p.getId(), id))
+                .findFirst();
 
     }
 }
