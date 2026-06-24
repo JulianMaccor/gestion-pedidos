@@ -1,4 +1,6 @@
-package com.ejemplo.pedidos;
+package com.ejemplo.pedidos.model;
+
+import com.ejemplo.pedidos.Producto;
 
 import java.util.ArrayList;
 import java.util.List;
