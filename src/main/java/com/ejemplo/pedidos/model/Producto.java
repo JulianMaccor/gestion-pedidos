@@ -1,7 +1,4 @@
-package com.ejemplo.pedidos;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.ejemplo.pedidos.model;
 
 public class Producto {
 
