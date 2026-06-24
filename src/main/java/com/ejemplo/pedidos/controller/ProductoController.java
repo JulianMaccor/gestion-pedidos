@@ -1,30 +1,26 @@
 package com.ejemplo.pedidos.controller;
 
 
-import com.ejemplo.pedidos.Producto;
+import com.ejemplo.pedidos.model.Producto;
+import com.ejemplo.pedidos.service.ProductoService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/productos")
 public class ProductoController {
 
-    private List<Producto> productos;
+    private final ProductoService productoService;
 
-    public ProductoController() {
-        productos = new ArrayList<>();
-        productos.add(new Producto(103L, "Placa Universal Audio", 900, 19));
-        productos.add(new Producto(104L, "Consola DDJ400 Pioneer", 600, 1));
+    public ProductoController(ProductoService productoService) {
+        this.productoService = productoService;
     }
-
 
     @GetMapping
     public List<Producto> listar(){
-        return productos;
+        return productoService.listarProductos();
     }
 
 
