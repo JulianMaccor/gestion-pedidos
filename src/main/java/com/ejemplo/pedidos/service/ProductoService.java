@@ -1,5 +1,6 @@
 package com.ejemplo.pedidos.service;
 import com.ejemplo.pedidos.dto.CreateProductDto;
+import com.ejemplo.pedidos.exception.ProductoNoEncontradoException;
 import com.ejemplo.pedidos.model.Producto;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -18,6 +19,13 @@ public class ProductoService {
 
     public List<Producto> listarProductos(){
         return productos;
+    }
+
+    public Producto buscarPorId(Long id){
+        return productos.stream()
+                .filter(producto -> producto.getId().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new ProductoNoEncontradoException(id));
     }
 
 

@@ -5,6 +5,8 @@ import com.ejemplo.pedidos.dto.CreateProductDto;
 import com.ejemplo.pedidos.model.Producto;
 import com.ejemplo.pedidos.service.ProductoService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,9 +26,15 @@ public class ProductoController {
         return productoService.listarProductos();
     }
 
+    @GetMapping("/{id}")
+    public Producto buscarPorId(@PathVariable Long id) {
+        return productoService.buscarPorId(id);
+    }
+
     @PostMapping
-    public Producto crearProducto(@Valid @RequestBody CreateProductDto dto){
-        return productoService.crearProducto(dto);
+    public ResponseEntity<Producto> crearProducto(@Valid @RequestBody CreateProductDto dto){
+        Producto ProductoCreado= productoService.crearProducto(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(ProductoCreado);
     }
 
 
