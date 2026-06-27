@@ -37,5 +37,16 @@ public class ProductoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(ProductoCreado);
     }
 
+    @PutMapping("/{id}")
+    public Producto actualizarProducto(@PathVariable Long id, @Valid @RequestBody CreateProductDto dto){
+        return productoService.actualizarProductoPorId(id, dto);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminarProducto(@PathVariable Long id){
+        productoService.eliminarProducto(id);
+        return ResponseEntity.noContent().build();
+    }
+
 
 }
