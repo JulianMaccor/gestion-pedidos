@@ -29,4 +29,17 @@ public class ProductoService {
         Producto producto = new Producto(null, dto.getNombre(), dto.getPrecio(), dto.getStock());
         return repository.save(producto);
     }
+
+    public Producto actualizarProductoPorId(Long id, CreateProductDto dto) {
+        Producto producto = buscarPorId(id);
+        producto.setNombre(dto.getNombre());
+        producto.setPrecio(dto.getPrecio());
+        producto.setStock(dto.getStock());
+        return repository.save(producto);
+    }
+
+    public void eliminarProducto(Long id) {
+        Producto producto = buscarPorId(id);
+        repository.delete(producto);
+    }
 }
