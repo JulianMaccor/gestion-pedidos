@@ -2,7 +2,7 @@ package com.ejemplo.pedidos.controller;
 
 
 import com.ejemplo.pedidos.dto.CreateProductDto;
-import com.ejemplo.pedidos.model.Producto;
+import com.ejemplo.pedidos.dto.ProductResponseDto;
 import com.ejemplo.pedidos.service.ProductoService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -22,23 +22,23 @@ public class ProductoController {
     }
 
     @GetMapping
-    public List<Producto> listar(){
+    public List<ProductResponseDto> listar(){
         return productoService.listarProductos();
     }
 
     @GetMapping("/{id}")
-    public Producto buscarPorId(@PathVariable Long id) {
+    public ProductResponseDto buscarPorId(@PathVariable Long id) {
         return productoService.buscarPorId(id);
     }
 
     @PostMapping
-    public ResponseEntity<Producto> crearProducto(@Valid @RequestBody CreateProductDto dto){
-        Producto ProductoCreado= productoService.crearProducto(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(ProductoCreado);
+    public ResponseEntity<ProductResponseDto> crearProducto(@Valid @RequestBody CreateProductDto dto){
+        ProductResponseDto productoCreado= productoService.crearProducto(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(productoCreado);
     }
 
     @PutMapping("/{id}")
-    public Producto actualizarProducto(@PathVariable Long id, @Valid @RequestBody CreateProductDto dto){
+    public ProductResponseDto actualizarProducto(@PathVariable Long id, @Valid @RequestBody CreateProductDto dto){
         return productoService.actualizarProductoPorId(id, dto);
     }
 
