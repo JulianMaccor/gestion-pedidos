@@ -1,5 +1,6 @@
 package com.ejemplo.pedidos.security;
 
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,6 +28,27 @@ public class JwtService {
                 .expiration(expiracion)
                 .signWith(getClave())
                 .compact();
+    }
+
+    public String extraerUsername(String token){
+        return Jwts.parser()
+                .verifyWith(getClave())
+                .build()
+                .parseSignedClaims(token)
+                .getPayload()
+                .getSubject();
+    }
+
+    public boolean tokenEsValido(String token) {
+        try {
+            Jwts.parser()
+                    .verifyWith(getClave())
+                    .build()
+                    .parseSignedClaims(token);
+            return true;
+        }catch (JwtException e){
+            return false;
+        }
     }
 
     private SecretKey getClave(){
