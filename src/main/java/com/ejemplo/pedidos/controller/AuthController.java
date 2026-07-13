@@ -7,6 +7,7 @@ import com.ejemplo.pedidos.security.dto.UserDto;
 import com.ejemplo.pedidos.service.UsuarioService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -34,6 +35,14 @@ public class AuthController {
         usuarioService.registrar(userDto);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body("Usuario creado: " + userDto.getUsername());
+    }
+
+    @PostMapping("/register-admin")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<String> registerAdmin(@RequestBody UserDto userdto){
+        usuarioService.registrarAdmin(userdto);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body("Administrador creado: " + userdto.getUsername());
     }
 
 

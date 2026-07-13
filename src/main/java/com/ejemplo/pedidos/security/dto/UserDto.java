@@ -5,10 +5,10 @@ public class UserDto {
     String password;
     String rol;
 
-    public UserDto(String rol, String password, String username) {
-        this.rol = rol;
-        this.password = password;
+    public UserDto(String username, String password, String rol) {
         this.username = username;
+        this.password = password;
+        this.rol = rol;
     }
 
     public String getRol() {
