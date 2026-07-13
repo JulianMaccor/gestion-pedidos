@@ -11,14 +11,28 @@ public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
     private final PasswordEncoder passwordEncoder;
 
+    public Usuario registrar(UserDto dto){
+        return crearConRol(dto.getUsername(), dto.getPassword(), "USER");
+    }
+
+    public Usuario registrarAdmin(UserDto dto){
+        return crearConRol(dto.getUsername(), dto.getPassword(), "ADMIN");
+    }
+
+    private Usuario crearConRol(String username, String password, String rol){
+        String passwordHasheada = passwordEncoder.encode(password);
+        Usuario usuario = new Usuario(username, passwordHasheada, rol);
+        return usuarioRepository.save(usuario);
+    }
+
     public UsuarioService(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder) {
         this.usuarioRepository = usuarioRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
-    public Usuario registrar(UserDto userDto){
-        String passwordHasheada = passwordEncoder.encode(userDto.getPassword());
-        Usuario usuario = new Usuario(userDto.getUsername(), passwordHasheada, userDto.getRol());
-        return usuarioRepository.save(usuario);
-    }
+    //public Usuario registrar(UserDto userDto){
+    //    String passwordHasheada = passwordEncoder.encode(userDto.getPassword());
+    //    Usuario usuario = new Usuario(userDto.getUsername(), passwordHasheada, userDto.getRol());
+    //    return usuarioRepository.save(usuario);
+    //}
 }
