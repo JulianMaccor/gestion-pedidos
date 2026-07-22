@@ -10,11 +10,14 @@ public class ProductResponseDto {
 
     private int stock;
 
-    public ProductResponseDto(Long id, String nombre, double precio, int stock) {
+    private CategoriaResponseDto categoria;
+
+    public ProductResponseDto(Long id, String nombre, double precio, int stock, CategoriaResponseDto categoria) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
         this.stock = stock;
+        this.categoria = categoria;
     }
 
     public Long getId() {
@@ -31,5 +34,9 @@ public class ProductResponseDto {
 
     public int getStock() {
         return stock;
+    }
+
+    public CategoriaResponseDto getCategoria() {
+        return categoria;
     }
 }
