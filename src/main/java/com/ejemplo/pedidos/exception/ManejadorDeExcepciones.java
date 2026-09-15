@@ -35,4 +35,9 @@ public class ManejadorDeExcepciones {
     public ResponseEntity<String> manejarStockInsuficiente(StockInsuficienteException ex) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
     }
+
+    @ExceptionHandler(PedidoNoEncontradoException.class)
+    public ResponseEntity<String> manejarPedidoNoEncontrado(PedidoNoEncontradoException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
 }
